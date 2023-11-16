@@ -1,3 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(
+    109.6deg,
+    rgb(36, 45, 57) 11.2%,
+    rgb(16, 37, 60) 51.2%,
+    rgb(0, 0, 0) 98.6%
+  );
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  @apply text-xl md:text-2xl text-text-color font-medium uppercase;
+  color: #eeeced;
+  letter-spacing: 2px;
+}
+
+h2 {
+  @apply text-xl md:text-2xl text-text-color font-medium;
+}
+
+h3 {
+  @apply text-lg md:text-xl text-text-color;
+}
+
+h4 {
+  @apply text-base md:text-lg text-text-color;
+}
+
+p {
+  @apply text-base text-text-color;
+}
+
+.container {
+  @apply max-w-lg mx-auto px-2;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px #22497284;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+.card::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.card::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+.card::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}
