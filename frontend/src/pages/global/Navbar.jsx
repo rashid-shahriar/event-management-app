@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthenticationContext";
 
 const Navbar = () => {
+  const { user, logout } = useAuth(); // Get the user and logout function from the context
+
+  console.log("AuthContext user data:", user); // Log user data
+
   const navData = [
     {
       name: "Home",
@@ -11,8 +16,9 @@ const Navbar = () => {
       path: "/history",
     },
     {
-      name: "Sign In",
-      path: "/signin",
+      name: user ? "Sign Out" : "Sign In",
+      path: user ? "/" : "/signin",
+      onClick: user ? logout : null,
     },
   ];
 
