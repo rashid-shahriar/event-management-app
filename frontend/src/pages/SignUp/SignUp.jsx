@@ -2,10 +2,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import Card from "../../components/Card";
+import { useSignup } from "../../hooks/userSignup";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { signup, isLoading, error } = useSignup();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    await signup(email, password);
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -19,11 +34,13 @@ const SignUp = () => {
     <Card>
       <h2 className="text-center mb-5">Welcome to LET&apos;S PLAY</h2>
 
-      <div className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label className="text-white mb-2">Email</label>
           <input
-            type="text"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Please enter your username"
             className="p-2 bg-white/10 border outline-none text-white backdrop-blur-lg input-border"
           />
@@ -34,6 +51,8 @@ const SignUp = () => {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Please enter your password"
               className="p-2 bg-white/10 border w-full outline-none text-white backdrop-blur-lg input-border"
             />
@@ -56,6 +75,8 @@ const SignUp = () => {
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Please enter your password"
               className="p-2 bg-white/10 border w-full outline-none text-white backdrop-blur-lg input-border"
             />
@@ -73,25 +94,29 @@ const SignUp = () => {
           </div>
         </div>
 
-        <a
-          href=""
+        <button
+          disabled={isLoading}
           className="bg-white/10 hover:bg-white/40 duration-300 border outline-none px-5 py-2 max-w-fit backdrop-blur-lg text-white"
         >
           Sign In
-        </a>
+        </button>
+        {confirmPassword !== password && (
+          <p className="text-red-500 text-center">Password does not match</p>
+        )}
+        {error && <div className="error">{error}</div>}
         <div className="flex justify-center flex-col items-center mt-5">
           <p>Already have an account?</p>
           <p>
             Please{" "}
             <Link
-              to="/signin"
+              to="/login"
               className="border-b cursor-pointer hover:text-gray-400 duration-300"
             >
               Sign In!
             </Link>{" "}
           </p>
         </div>
-      </div>
+      </form>
     </Card>
   );
 };
